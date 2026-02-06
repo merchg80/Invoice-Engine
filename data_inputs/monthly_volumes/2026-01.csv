@@ -1,3 +1,2 @@
-contract_id,billing_month,delivered_mmbtu
-JST-001,2026-01-01,9709
-
+contract_id,billing_month,delivered_mmbtu,upstream_transport_mmbtu
+JST-001,2026-01-01,9709,15500

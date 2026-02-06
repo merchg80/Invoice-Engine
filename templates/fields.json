@@ -1,26 +1,59 @@
 {
   "page": 0,
   "whiteout_rects": [
-    { "x": 0, "y": 0, "w": 0, "h": 0 }
+    { "x": 523.48, "y": 680.52, "w": 7.26, "h": 10.55 },
+    { "x": 500.68, "y": 672.24, "w": 30.03, "h": 10.55 },
+    { "x": 500.68, "y": 663.96, "w": 30.03, "h": 10.55 },
+    { "x": 50.2, "y": 539.36, "w": 90.74, "h": 11.16 },
+
+    { "x": 378.97, "y": 384.51, "w": 15.5, "h": 9.75 },
+    { "x": 438.69, "y": 384.51, "w": 16.92, "h": 9.75 },
+    { "x": 483.28, "y": 384.51, "w": 29.88, "h": 9.75 },
+
+    { "x": 377.51, "y": 346.23, "w": 18.33, "h": 9.75 },
+    { "x": 438.31, "y": 346.23, "w": 16.96, "h": 9.75 },
+    { "x": 482.92, "y": 346.23, "w": 29.88, "h": 9.75 },
+
+    { "x": 486.52, "y": 337.83, "w": 22.65, "h": 9.75 },
+    { "x": 484.36, "y": 329.43, "w": 29.88, "h": 9.75 },
+
+    { "x": 380.37, "y": 321.03, "w": 12.59, "h": 9.75 },
+    { "x": 438.33, "y": 321.03, "w": 16.96, "h": 9.75 },
+    { "x": 484.36, "y": 321.03, "w": 27.0, "h": 9.75 },
+
+    { "x": 378.94, "y": 312.63, "w": 15.5, "h": 9.75 },
+    { "x": 438.68, "y": 312.63, "w": 16.92, "h": 9.75 },
+    { "x": 484.36, "y": 312.63, "w": 27.0, "h": 9.75 },
+
+    { "x": 494.14, "y": 579.96, "w": 36.37, "h": 11.22 }
   ],
   "text_fields": {
-    "invoice_number": { "x": 0, "y": 0, "size": 10, "align": "left" },
-    "invoice_date":   { "x": 0, "y": 0, "size": 10, "align": "left" },
-    "due_date":       { "x": 0, "y": 0, "size": 10, "align": "left" },
+    "invoice_number": { "x": 528.74, "y": 683.52, "size": 6, "align": "right" },
+    "invoice_date": { "x": 528.71, "y": 675.24, "size": 6, "align": "right" },
+    "due_date": { "x": 528.71, "y": 666.96, "size": 6, "align": "right" },
 
-    "meter_start":    { "x": 0, "y": 0, "size": 10, "align": "left" },
-    "meter_end":      { "x": 0, "y": 0, "size": 10, "align": "left" },
+    "meter_dates_line": { "x": 52.2, "y": 542.36, "size": 6, "align": "left" },
 
-    "delivered_mmbtu": { "x": 0, "y": 0, "size": 10, "align": "right" },
-    "contract_price":  { "x": 0, "y": 0, "size": 10, "align": "right" },
-    "commodity_amount":{ "x": 0, "y": 0, "size": 10, "align": "right" },
+    "ng_qty": { "x": 392.46, "y": 387.51, "size": 6, "align": "right" },
+    "ng_rate": { "x": 453.61, "y": 387.51, "size": 6, "align": "right" },
+    "ng_amount": { "x": 511.16, "y": 387.51, "size": 6, "align": "right" },
 
-    "upstream_fuel_amount": { "x": 0, "y": 0, "size": 10, "align": "right" },
-    "utility_admin_qty":    { "x": 0, "y": 0, "size": 10, "align": "right" },
-    "utility_admin_rate":   { "x": 0, "y": 0, "size": 10, "align": "right" },
-    "utility_admin_amount": { "x": 0, "y": 0, "size": 10, "align": "right" },
+    "upstream_transport_qty": { "x": 393.84, "y": 349.23, "size": 6, "align": "right" },
+    "upstream_transport_rate": { "x": 453.27, "y": 349.23, "size": 6, "align": "right" },
+    "upstream_transport_amount": { "x": 510.8, "y": 349.23, "size": 6, "align": "right" },
 
-    "total_due": { "x": 0, "y": 0, "size": 12, "align": "right" }
+    "upstream_fuel_amount": { "x": 501.32, "y": 340.83, "size": 6, "align": "right" },
+
+    "utility_customer_charge_amount": { "x": 509.34, "y": 332.43, "size": 6, "align": "right" },
+
+    "utility_admin_qty": { "x": 390.97, "y": 324.03, "size": 6, "align": "right" },
+    "utility_admin_rate": { "x": 453.28, "y": 324.03, "size": 6, "align": "right" },
+    "utility_admin_amount": { "x": 509.34, "y": 324.03, "size": 6, "align": "right" },
+
+    "distribution_qty": { "x": 392.4, "y": 315.63, "size": 6, "align": "right" },
+    "distribution_rate": { "x": 453.6, "y": 315.63, "size": 6, "align": "right" },
+    "distribution_amount": { "x": 509.34, "y": 315.63, "size": 6, "align": "right" },
+
+    "total_due": { "x": 528.51, "y": 582.96, "size": 6, "align": "right" }
   }
 }
-

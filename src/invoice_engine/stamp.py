@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -24,13 +23,14 @@ def days_in_month(month_start: date) -> int:
     return (month_start + relativedelta(months=1) - month_start).days
 
 def fmt_money(x: float) -> str:
-    return f"{x:,.2f}"
+    return f"${x:,.2f}"
 
 def fmt_qty(x: float) -> str:
-    return f"{x:,.3f}"
+    # template shows no commas in qty, but you can change to {x:,.0f} if desired
+    return f"{x:.0f}"
 
 def fmt_price(x: float) -> str:
-    return f"{x:,.4f}"
+    return f"${x:,.2f}"
 
 def draw_aligned(c: canvas.Canvas, x: float, y: float, text: str, size: int, align: str):
     c.setFont("Helvetica", size)
@@ -122,10 +122,14 @@ def main(billing_month: str):
     for _, r in df.iterrows():
         pricing_type = str(r["pricing_type"]).upper()
         adder = float(r.get("adder", 0.0))
+
         upstream_fuel_pct = float(r.get("upstream_fuel_pct", 0.015))
+        upstream_transport_rate = float(r.get("upstream_transport_rate", 0.0))
+        distribution_rate = float(r.get("distribution_rate", 0.0))
         utility_admin_rate = float(r.get("utility_admin_rate", 4.13))
 
         delivered_mmbtu = float(r["delivered_mmbtu"])
+        upstream_transport_mmbtu = float(r.get("upstream_transport_mmbtu", delivered_mmbtu))
 
         # Price
         if pricing_type == "INDEX_PLUS":
@@ -140,47 +144,61 @@ def main(billing_month: str):
         else:
             raise ValueError(f"Unsupported pricing_type: {pricing_type}")
 
-        # Compute
+        # Compute line items
         commodity_amount = delivered_mmbtu * contract_price
         upstream_fuel_amount = upstream_fuel_pct * commodity_amount
 
-        # Utility admin qty is avg daily MMBtu (since meter dates are 1st/last, this is deterministic)
+        upstream_transport_amount = upstream_transport_mmbtu * upstream_transport_rate
+        distribution_amount = delivered_mmbtu * distribution_rate
+
+        # Utility admin qty = average daily MMBtu (this matches the “324” style qty on your template)
         utility_admin_qty = delivered_mmbtu / billing_days
         utility_admin_amount = utility_admin_qty * utility_admin_rate
 
-        fixed_utility = float(r.get("utility_customer_charge_amount", 0.0))
-        reimb_ff = float(r.get("reimb_franchise_fee_amount", 0.0))
-        reimb_pt = float(r.get("reimb_pipeline_tax_amount", 0.0))
+        # Fixed charges from customer table
+        utility_customer_charge_amount = float(r.get("utility_customer_charge_amount", 0.0))
 
+        # Total due (add reimbursements here too if you want them printed/white-out later)
         total_due = (
             commodity_amount
+            + upstream_transport_amount
             + upstream_fuel_amount
+            + utility_customer_charge_amount
             + utility_admin_amount
-            + fixed_utility
-            + reimb_ff
-            + reimb_pt
+            + distribution_amount
         )
 
         invoice_date = date.today()
         terms = int(r.get("payment_terms_days", 10))
         due_date = invoice_date + timedelta(days=terms)
 
-        # Values to print
+        # Values to print (these keys must match templates/fields.json)
         values = {
             "invoice_number": f'{r["customer_id"]}-{r["contract_id"]}-{month_start:%Y%m}',
-            "invoice_date": invoice_date.isoformat(),
-            "due_date": due_date.isoformat(),
-            "meter_start": meter_start.isoformat(),
-            "meter_end": meter_end.isoformat(),
+            "invoice_date": invoice_date.strftime("%-m/%d/%Y") if hasattr(invoice_date, "strftime") else invoice_date.isoformat(),
+            "due_date": due_date.strftime("%-m/%d/%Y") if hasattr(due_date, "strftime") else due_date.isoformat(),
 
-            "delivered_mmbtu": fmt_qty(delivered_mmbtu),
-            "contract_price": fmt_price(contract_price),
-            "commodity_amount": fmt_money(commodity_amount),
+            "meter_dates_line": f"Meter Dates: {meter_start.month}/{meter_start.day}/{meter_start.year}-{meter_end.month}/{meter_end.day}/{meter_end.year}",
+
+            "ng_qty": fmt_qty(delivered_mmbtu),
+            "ng_rate": fmt_price(contract_price),
+            "ng_amount": fmt_money(commodity_amount),
+
+            "upstream_transport_qty": fmt_qty(upstream_transport_mmbtu),
+            "upstream_transport_rate": fmt_price(upstream_transport_rate),
+            "upstream_transport_amount": fmt_money(upstream_transport_amount),
 
             "upstream_fuel_amount": fmt_money(upstream_fuel_amount),
+
+            "utility_customer_charge_amount": fmt_money(utility_customer_charge_amount),
+
             "utility_admin_qty": fmt_qty(utility_admin_qty),
             "utility_admin_rate": fmt_price(utility_admin_rate),
             "utility_admin_amount": fmt_money(utility_admin_amount),
+
+            "distribution_qty": fmt_qty(delivered_mmbtu),
+            "distribution_rate": fmt_price(distribution_rate),
+            "distribution_amount": fmt_money(distribution_amount),
 
             "total_due": fmt_money(total_due),
         }
@@ -198,4 +216,3 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         raise SystemExit("Usage: python src/invoice_engine/stamp.py YYYY-MM")
     main(sys.argv[1])
-

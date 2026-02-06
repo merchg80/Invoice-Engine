@@ -9,28 +9,20 @@ on:
         default: "2026-01"
 
 jobs:
-  build:
+  gen:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+      - run: pip install -r requirements.txt
 
-      - name: Generate invoices
-        run: |
-          python src/invoice_engine/generate.py "${{ inputs.billing_month }}"
+      - run: python src/invoice_engine/stamp.py "${{ inputs.billing_month }}"
 
-      - name: Upload PDFs
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: invoices-${{ inputs.billing_month }}
-          path: out/*.pdf
-
+          path: out/Invoice_*.pdf

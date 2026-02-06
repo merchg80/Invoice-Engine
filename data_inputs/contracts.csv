@@ -1,1 +1,3 @@
+contract_id,customer_id,contract_name,pricing_type,index_name,adder,fixed_price,upstream_fuel_pct,distribution_rate,active
+JST-001,JST,"JST HSC+0.18",INDEX_PLUS,HSC_IFERC,0.18,,0.015,4.13,1
 

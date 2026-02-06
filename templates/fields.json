@@ -1,1 +1,26 @@
+{
+  "page": 0,
+  "whiteout_rects": [
+    { "x": 0, "y": 0, "w": 0, "h": 0 }
+  ],
+  "text_fields": {
+    "invoice_number": { "x": 0, "y": 0, "size": 10, "align": "left" },
+    "invoice_date":   { "x": 0, "y": 0, "size": 10, "align": "left" },
+    "due_date":       { "x": 0, "y": 0, "size": 10, "align": "left" },
+
+    "meter_start":    { "x": 0, "y": 0, "size": 10, "align": "left" },
+    "meter_end":      { "x": 0, "y": 0, "size": 10, "align": "left" },
+
+    "delivered_mmbtu": { "x": 0, "y": 0, "size": 10, "align": "right" },
+    "contract_price":  { "x": 0, "y": 0, "size": 10, "align": "right" },
+    "commodity_amount":{ "x": 0, "y": 0, "size": 10, "align": "right" },
+
+    "upstream_fuel_amount": { "x": 0, "y": 0, "size": 10, "align": "right" },
+    "utility_admin_qty":    { "x": 0, "y": 0, "size": 10, "align": "right" },
+    "utility_admin_rate":   { "x": 0, "y": 0, "size": 10, "align": "right" },
+    "utility_admin_amount": { "x": 0, "y": 0, "size": 10, "align": "right" },
+
+    "total_due": { "x": 0, "y": 0, "size": 12, "align": "right" }
+  }
+}
 

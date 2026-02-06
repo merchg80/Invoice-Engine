@@ -1,1 +1,3 @@
+customer_id,customer_name,customer_address,service_address,business_address,customer_id_number,account_number,payment_terms_days,utility_customer_charge_amount,reimb_franchise_fee_amount,reimb_pipeline_tax_amount
+JST,JSTGlobal LLC,"BILL TO ADDRESS HERE","SERVICE ADDRESS HERE","YOUR BUSINESS ADDRESS HERE",,KMTX-ACCT-001,10,0,0,0
 

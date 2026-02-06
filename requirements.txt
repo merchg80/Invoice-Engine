@@ -1,4 +1,4 @@
 pandas
 python-dateutil
 reportlab
-
+pypdf

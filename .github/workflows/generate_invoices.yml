@@ -1,1 +1,36 @@
+name: Generate Invoices
+
+on:
+  workflow_dispatch:
+    inputs:
+      billing_month:
+        description: "Billing month (YYYY-MM)"
+        required: true
+        default: "2026-01"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Generate invoices
+        run: |
+          python src/invoice_engine/generate.py "${{ inputs.billing_month }}"
+
+      - name: Upload PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: invoices-${{ inputs.billing_month }}
+          path: out/*.pdf
 
